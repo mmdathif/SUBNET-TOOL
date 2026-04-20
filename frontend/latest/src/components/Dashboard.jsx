@@ -16,7 +16,7 @@ function Dashboard() {
       
       {/* Sidebar */}
       <div className="sidebar">
-        <h2 className="sidebar-title">🌐 NetTool</h2>
+        <h2 className="sidebar-title">🌐 Subnetting & IP Planning Tool</h2>
 
         <nav>
           <Link
