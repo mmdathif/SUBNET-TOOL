@@ -1,355 +1,156 @@
-#  Subnetting & IP Planning Tool (Vite + Node + Redis)
+🌐 Subnetting & IP Planning Tool
 
-This is a full-stack web application built to make subnetting easier to understand and use in practice. Instead of doing manual calculations, this tool lets you quickly compute subnet details, split networks, visualize ranges, and keep track of previous results.
+A full-stack web application that simplifies subnet calculations, network splitting, and visualization.
 
-It is designed mainly for beginners in networking as well as developers who want a simple subnet utility with a clean UI.
+🔗 Live Demo: https://subnet-tool.onrender.com
 
----
+🚀 Features
+🧮 Subnet Calculator
+Calculate Network Address
+Calculate Broadcast Address
+Compute Total Usable Hosts
+🔀 Subnet Splitter
+Split networks (e.g., /24 → /26)
+View Subnet Ranges
+First and Last Usable IP
+Broadcast Address
+📊 Visualization
+Graphical charts using Chart.js
+Easy understanding of subnet sizes
+☁️ History (Cloud Storage)
+Stored in Upstash Redis
+View previous calculations
+Track subnet splits
+📁 Export
+Export data as:
+JSON
+CSV
+🛠️ Tech Stack
+Frontend
+React (Vite)
+Axios
+Chart.js
+Backend
+Node.js
+Express.js
+Database
+Upstash Redis (Serverless)
+🚀 Deployment
+Frontend and Backend: Render
+Database: Upstash Redis
+⚙️ Setup Instructions (Run Locally)
+1. Clone the Repository
 
-# Features
+git clone <your-repo-link>
+cd SUBNET
 
-##  Subnet Calculator
+🔧 Backend Setup
 
-You can enter an IP address along with its CIDR value, and the tool will calculate:
-
-* Network Address
-* Broadcast Address
-* Total number of usable hosts
-
----
-
-##  Subnet Splitter
-
-If you have a network (for example `/24`) and want to divide it into smaller subnets (like `/26`), this feature will:
-
-* Split the network into multiple subnet blocks
-* Show the first and last usable host
-* Display the broadcast address for each subnet
-
----
-
-##  Visualization
-
-To make things easier to understand, the app includes graphical charts that represent subnet sizes and ranges. This helps especially when you're learning how subnetting works.
-
----
-
-##  History (Redis)
-
-All calculations are stored in Redis (Upstash cloud database), so you can:
-
-* View previous subnet calculations
-* Check previously split networks
-
----
-
-##  Export
-
-You can export your history data in:
-
-* JSON format
-* CSV format
-
----
-
-#  Tech Stack
-
-### Frontend
-
-* React (using Vite)
-* Axios
-* Chart.js
-
-### Backend
-
-* Node.js
-* Express.js
-* Redis client
-
-### Database
-
-* Upstash Redis (Cloud-based Redis)
-
----
-
-#  Prerequisites
-
-Before setting up the project, make sure you have the following installed:
-
-## 🔹 Node.js
-
-bash
-node -v
-npm -v
-
-
----
-
-## 🔹 Code Editor
-
-You can use any editor, but VS Code is recommended for better experience.
-
----
-
-## 🔹 Upstash Redis Account
-
-1. Create an account on Upstash
-2. Create a Redis database
-3. Copy your Redis connection URL
-
-Example:
-
-env
-REDIS_URL=rediss://default:password@host:6379
-
-
----
-
-#  Backend Setup
-
-## Step 1: Navigate to backend folder
-
-bash
 cd backend
+npm install
 
+Create a .env file inside backend folder:
 
----
-
-## Step 2: Install dependencies
-
-bash
-npm install express cors dotenv redis
-
-
-### What these packages do:
-
-* **express** → Handles API routes
-* **cors** → Allows frontend to communicate with backend
-* **dotenv** → Loads environment variables
-* **redis** → Connects to Upstash database
-
----
-
-## Step 3: Create `.env` file
-
-env
 REDIS_URL=your_upstash_url
 PORT=5000
 
+Start backend:
 
----
-
-## Step 4: Start backend server
-
-bash
 npm start
 
+Backend runs at:
+http://localhost:5000
 
-The backend will run at: http://localhost:5000
+🎨 Frontend Setup
 
-
----
-
-#  Frontend Setup
-
-## Step 1: Create Vite app (if not already created)
-
-bash
-npm create vite@latest frontend
-cd frontend
+cd ../frontend/latest
 npm install
-
-
-Choose:
-
-* React
-* JavaScript
-
----
-
-## Step 2: Install dependencies
-
-bash
-npm install axios react-router-dom chart.js react-chartjs-2
-
-
----
-
-## Step 3: Start frontend
-
-bash
 npm run dev
 
-
 Frontend runs at:
-
-
 http://localhost:5173
 
+🔗 API Endpoints
+📌 Calculate Subnet
 
----
-
-#  API Endpoints
-
-## POST `/calculate`
+POST /calculate
 
 Request:
-
-json
 {
-  "ip": "192.168.1.1",
-  "cidr": 24
+"ip": "192.168.1.1",
+"cidr": 24
 }
 
+📌 Split Subnets
 
-Response:
+POST /subnets
 
-json
+Request:
 {
-  "network": "192.168.1.0",
-  "broadcast": "192.168.1.255",
-  "hosts": 254
+"ip": "192.168.1.0",
+"oldCidr": 24,
+"newCidr": 26
 }
 
+📌 Get History
 
----
+GET /history
 
-## POST `/subnets`
+Returns stored calculations from Redis.
 
-json
-{
-  "ip": "192.168.1.0",
-  "oldCidr": 24,
-  "newCidr": 26
-}
+🧠 Core Logic
+IP Conversion
 
+Convert IP address to integer for bitwise operations
 
----
-
-## GET `/history`
-
-Returns all stored calculations.
-
----
-
-#  Core Logic (Simple Explanation)
-
-## 🔹 Why convert IP to number?
-
-Example:
-
-
-192.168.1.1 → 3232235777
-
-
-Computers work better with numbers than strings. Converting IPs allows us to use bitwise operations easily.
-
----
-
-## 🔹 Subnet calculation
+Subnet Calculation
 
 Network = IP & Mask
 Broadcast = Network | ~Mask
 
+Subnet Splitting
 
-* `&` finds the network portion
-* `|` and `~` help compute the broadcast address
+Number of subnets = 2^(newCIDR - oldCIDR)
+Subnet size = 2^(32 - newCIDR)
 
----
-
-## 🔹 Subnet splitting
-
-
-Total subnets = 2^(newCIDR - oldCIDR)
-
-Each subnet size: 2^(32 - newCIDR)
----
-
-## 🔹 Redis storage
-
-Each operation is saved like this:
-
-json
-{
-  "type": "split",
-  "ip": "...",
-  "oldCidr": 24,
-  "newCidr": 26,
-  "subnets": [],
-  "time": "timestamp"
-}
-
-
-Stored using:
-
-js
-client.lPush("history", JSON.stringify(data))
-
-
----
-
-#  How to Run the Project
-
-1. Start backend
-
-   bash
-   cd backend
-   npm start
-   
-
-2. Start frontend
-
-   bash
-   cd frontend
-   npm run dev
-   
-
-3. Open in browser
-
-   
-   http://localhost:5173
-   
-
----
-
-# 📊 Example
+📌 Example
 
 Input:
-
-
 192.168.10.0/24 → /26
 
-
 Output:
+Subnet 1: 192.168.10.0 - 192.168.10.63
+Subnet 2: 192.168.10.64 - 192.168.10.127
+Subnet 3: 192.168.10.128 - 192.168.10.191
+Subnet 4: 192.168.10.192 - 192.168.10.255
 
+⚠️ Common Issues & Fixes
+500 Error
+Check Redis connection
+Verify REDIS_URL
+History Empty
+Perform a calculation first
+Check backend logs
+CORS Error
 
-Subnet 1: 192.168.10.0 - 192.168.10.63  
-Subnet 2: 192.168.10.64 - 192.168.10.127  
-Subnet 3: 192.168.10.128 - 192.168.10.191  
-Subnet 4: 192.168.10.192 - 192.168.10.255  
+Add this in backend:
 
+const cors = require("cors");
+app.use(cors());
 
----
+💡 Quick Start
+Clone project
 
-# ⚠️ Common Issues
+git clone <your-repo-link>
 
-### 500 Error
+Start backend
 
-* Check Redis connection
-* Make sure routes are async
+cd backend
+npm install
+npm start
 
----
+Start frontend
 
-### Redis not saving data
-
-* Ensure you're using the correct (default) Redis user
-
----
-
-### History is empty
-
-* Perform at least one calculation before checking history
-
----
-
-This project is a good mix of networking concepts and full-stack development. It can also be extended further by adding authentication, advanced subnet visualization, or IPv6 support.
+cd ../frontend/latest
+npm install
+npm run dev
