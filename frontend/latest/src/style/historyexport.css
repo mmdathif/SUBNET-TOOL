@@ -1,0 +1,90 @@
+/* Container */
+.history-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Title */
+.history-title {
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1e293b;
+}
+
+/* Button Group */
+.history-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+.history-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Variants */
+.btn-primary {
+  background: #4f46e5;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #4338ca;
+}
+
+.btn-secondary {
+  background: #0ea5e9;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #0284c7;
+}
+
+.btn-success {
+  background: #22c55e;
+  color: white;
+}
+
+.btn-success:hover {
+  background: #16a34a;
+}
+
+/* History List */
+.history-list {
+  display: grid;
+  gap: 15px;
+}
+
+/* Card */
+.history-card {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 5px solid #4f46e5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.history-card p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #334155;
+}
+
+.history-card b {
+  color: #1e293b;
+}
+
+/* Empty State */
+.empty-text {
+  text-align: center;
+  color: #64748b;
+}

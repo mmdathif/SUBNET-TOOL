@@ -1,0 +1,83 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Buttons (global) */
+button {
+  font-family: inherit;
+}
+
+/* Scrollbar (modern look) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Headings */
+h1, h2, h3 {
+  font-weight: 600;
+}
+
+/* Utility Classes */
+
+/* Flex center */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card style (reusable everywhere) */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Input (global fallback style) */
+input {
+  font-family: inherit;
+}
+
+/* Smooth transitions for UI */
+button,
+input,
+a {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}

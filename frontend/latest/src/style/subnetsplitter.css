@@ -1,0 +1,88 @@
+/* Container */
+.splitter-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Title */
+.splitter-title {
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1e293b;
+}
+
+/* Form */
+.splitter-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* Input */
+.splitter-input {
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.splitter-input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+/* Button */
+.splitter-button {
+  grid-column: span 3;
+  padding: 12px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.splitter-button:hover {
+  background: #4338ca;
+}
+
+/* Subnet Cards */
+.subnet-list {
+  display: grid;
+  gap: 15px;
+}
+
+.subnet-card {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 5px solid #4f46e5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.subnet-card h4 {
+  margin-bottom: 8px;
+  color: #1e293b;
+}
+
+.subnet-card p {
+  margin: 5px 0;
+  color: #334155;
+  font-size: 14px;
+}
+
+/* Chart Section */
+.chart-section {
+  margin-top: 30px;
+}
+
+.chart-title {
+  margin-bottom: 10px;
+  color: #1e293b;
+}
