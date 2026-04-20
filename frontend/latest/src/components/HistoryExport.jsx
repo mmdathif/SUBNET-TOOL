@@ -9,7 +9,7 @@ function HistoryExport() {
   const fetchHistory = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/history");
+      const res = await axios.get("/history");
       setHistory(res.data);
     } catch (err) {
       alert("Failed to load history");

@@ -9,7 +9,7 @@ function SubnetIP() {
 
   const handleCalculate = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/calculate", {
+      const res = await axios.post("/calculate", {
         ip,
         cidr: Number(cidr),
       });

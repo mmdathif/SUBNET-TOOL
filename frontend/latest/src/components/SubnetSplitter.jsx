@@ -16,7 +16,7 @@ function SubnetSplitter() {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/subnets", {
+      const res = await axios.post("/subnets", {
         ip,
         oldCidr: Number(oldCidr),
         newCidr: Number(newCidr),
