@@ -36,29 +36,29 @@ function HistoryExport() {
   };
 
   const exportCSV = () => {
-    if (!history || history.length === 0) {
-      alert("No history data to export");
-      return;
+  if (!history || history.length === 0) {
+    alert("No history data to export");
+    return;
+  }
+
+  let csv = "Type,IP,CIDR,OldCIDR,NewCIDR,Time,Details\n";
+
+  history.forEach((h) => {
+    if (h.type === "split" || h.subnets) {
+      csv += `split,${h.ip},,${h.oldCidr},${h.newCidr},${h.time},Subnets:${h.subnets?.length || 0}\n`;
+    } else {
+      csv += `calculate,${h.ip},${h.cidr},,,${h.time},Hosts:${h.result?.hosts || "N/A"}\n`;
     }
+  });
 
-    let csv = "Type,IP,CIDR,OldCIDR,NewCIDR,Time,Details\n";
+  const blob = new Blob([csv], { type: "text/csv" });
 
-    history.forEach((h) => {
-      if (h.type === "split") {
-        csv += `split,${h.ip},,${h.oldCidr},${h.newCidr},${h.time},Subnets:${h.subnets.length}\n`;
-      } else {
-        csv += `calculate,${h.ip},${h.cidr},,,${h.time},Hosts:${h.result.hosts}\n`;
-      }
-    });
-
-    const blob = new Blob([csv], { type: "text/csv" });
-
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "history.csv";
-    a.click();
-  };
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "history.csv";
+  a.click();
+};
 
   return (
     <div className="history-container">
