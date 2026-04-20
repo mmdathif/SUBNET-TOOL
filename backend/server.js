@@ -14,11 +14,10 @@ app.use(express.json());
 app.use('/', subnetRoutes);
 
 
-app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use(express.static(path.join(__dirname, "frontend/latest/dist")));
 
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend/latest/dist/index.html"));
 });
 
 // ✅ Dynamic port for Render
